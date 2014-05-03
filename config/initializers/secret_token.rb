@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-StreetLampApp::Application.config.secret_key_base = 'ec2488ec312f94ff688d471425f30ee5b1e5d7fc0504ebc8c358d96ee2b50d7e097408fd14e95afe5e6115d128c68450abb8c07cf9784e35bc25385221b28c54'
+StreetLampApp::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
