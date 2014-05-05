@@ -2,7 +2,9 @@ StreetLampApp::Application.routes.draw do
 
 
 
-  root 'users#index'
+  #devise_for :users
+  root 'users#new'
+  #get ''
 
 
   # The priority is based upon order of creation: first created -> highest priority.
