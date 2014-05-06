@@ -1,7 +1,12 @@
 StreetLampApp::Application.routes.draw do
 
+
+  root to: "sites#index"
+
   devise_for :users
-  root 'users#new'
+   resources :users
+
+
   #get ''
 
 
