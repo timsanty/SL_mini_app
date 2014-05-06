@@ -4,7 +4,9 @@ StreetLampApp::Application.routes.draw do
   root to: "sites#index"
 
   devise_for :users
-   resources :users
+  resources :users
+
+  get '/search', to: 'favorites#search' 
 
 
   #get ''
