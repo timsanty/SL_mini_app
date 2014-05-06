@@ -6,7 +6,7 @@ StreetLampApp::Application.routes.draw do
   devise_for :users
   resources :users
 
-  get '/search', to: 'favorites#search' 
+  match '/search', to: 'favorites#search', via: [:get, :post]
 
   post '/nearby', to: 'favorites#nearby'
 

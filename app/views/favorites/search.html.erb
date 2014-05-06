@@ -51,10 +51,19 @@
 <div id="map-canvas" style="width:500px;height:380px;"></div>
   
 <div id="info"></div>
-<form method="post" action="/nearby">
+<form method="post" action="/search">
   <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
-  <input type= "authenticity">
+<!--   <input type= "authenticity"> -->
 	<input type="hidden" id="mapLat" name="position[lat]">
 	<input type="hidden" id="mapLong" name="position[long]">
 	<button>Find Bars!</button>
 </form>
+
+<div style= align:right>
+<h1>nearby is ALIVE!!</h1>
+
+<% @barlist.each do |bar| %>
+<li><%= bar["name"] %></li>
+  
+<% end  %>
+</div>
