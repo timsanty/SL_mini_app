@@ -1,0 +1,60 @@
+<style>
+  html, body, #map-canvas {
+    height: 100%;
+    margin: 0px;
+    padding: 0px
+  }
+</style>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+<script>
+  function initialize() {
+    var mapOptions = {
+      zoom: 12,
+      center: new google.maps.LatLng(37.75225820732335, -122.4371337890625)
+    };
+
+    var map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+    var marker = null;
+
+    google.maps.event.addListener(map, 'click', function(e) {
+      if (marker) {
+        marker.setMap(null);
+        marker = null;
+       }
+
+       marker = placeMarker(e.latLng, map);
+    });
+  }
+
+  function placeMarker(position, map) {
+    //console.log(position)
+    var marker = new google.maps.Marker({
+    position: position,
+    map: map
+    });
+
+    document.getElementById("mapLat").value = position.k;
+    document.getElementById("mapLong").value = position.A;
+    
+    map.panTo(position);
+    
+    return marker;
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+
+<div id="map-canvas" style="width:500px;height:380px;"></div>
+  
+<div id="info"></div>
+<form method="post" action="/nearby">
+  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
+  <input type= "authenticity">
+	<input type="hidden" id="mapLat" name="position[lat]">
+	<input type="hidden" id="mapLong" name="position[long]">
+	<button>Find Bars!</button>
+</form>

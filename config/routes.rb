@@ -8,6 +8,9 @@ StreetLampApp::Application.routes.draw do
 
   get '/search', to: 'favorites#search' 
 
+  post '/nearby', to: 'favorites#nearby'
+
+  get '/nearby', to: 'favorites#favorites'
 
   #get ''
 
