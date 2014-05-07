@@ -59,11 +59,26 @@
 	<button>Find Bars!</button>
 </form>
 
-<div style= align:right>
-<h1>nearby is ALIVE!!</h1>
 
-<% @barlist.each do |bar| %>
-<li><%= bar["name"] %></li>
-  
-<% end  %>
+
+
+<div style= align:right>
+<h1>Bars nearby:</h1>
+
+<% if @barlist %>
+  <% @barlist.each do |bar| %>
+    <li><%= bar["name"] %></li>
+    <form method= "post" action="/favorites" id="favorite">
+      <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
+      <input type="hidden" id="name" name="name"  value="<%=bar['name']%>" >
+       <input type="hidden" id="name" name="adrStreet"  value="<%=bar['adrStreet']%>" >
+        <input type="hidden" id="name" name="adrCity"  value="<%=bar['adrCity']%>" >
+         <input type="hidden" id="name" name="adrZip"  value="<%=bar['adrZip']%>" >
+          <input type="hidden" id="name" name="phone"  value="<%=bar['phone']%>" >
+      <input type="hidden" id="name" name="venId"  value="<%=bar['venId']%>" >
+      <button>Add to favorites!</button>
+    </form>
+  <% end  %>
+<% end %>
 </div>
+
