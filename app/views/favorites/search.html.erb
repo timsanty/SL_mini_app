@@ -27,10 +27,15 @@
        }
 
        marker = placeMarker(e.latLng, map);
+
+
+       window.location.href = '/search?lat=' + e.latLng.k + '&lng=' + e.latLng.A;
     });
   }
 
   function placeMarker(position, map) {
+
+
     //console.log(position)
     var marker = new google.maps.Marker({
     position: position,
@@ -54,21 +59,21 @@
 <form method="post" action="/search">
   <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
 <!--   <input type= "authenticity"> -->
-	<input type="hidden" id="mapLat" name="position[lat]">
-	<input type="hidden" id="mapLong" name="position[long]">
-	<button>Find Bars!</button>
+	<input type="hidden" id="mapLat" name="lat">
+	<input type="hidden" id="mapLong" name="lng">
+	
 </form>
 
 
 
 
-<div style= align:right>
+
 <h1>Bars nearby:</h1>
 
 <% if @barlist %>
   <% @barlist.each do |bar| %>
     <li><%= bar["name"] %></li>
-    <form method= "post" action="/favorites" id="favorite">
+    <form method= "post" action="/add/favorite" id="favorite">
       <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
       <input type="hidden" id="name" name="name"  value="<%=bar['name']%>" >
        <input type="hidden" id="name" name="adrStreet"  value="<%=bar['adrStreet']%>" >
@@ -78,7 +83,6 @@
       <input type="hidden" id="name" name="venId"  value="<%=bar['venId']%>" >
       <button>Add to favorites!</button>
     </form>
-  <% end  %>
-<% end %>
-</div>
 
+  <% end %>
+<% end  %>
