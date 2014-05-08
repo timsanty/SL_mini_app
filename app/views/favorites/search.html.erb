@@ -28,15 +28,11 @@
 
        marker = placeMarker(e.latLng, map);
 
-
        window.location.href = '/search?lat=' + e.latLng.k + '&lng=' + e.latLng.A;
     });
   }
 
   function placeMarker(position, map) {
-
-
-    //console.log(position)
     var marker = new google.maps.Marker({
     position: position,
     map: map
@@ -52,27 +48,30 @@
 
   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
-
 <div id="map-canvas" style="width:500px;height:380px;"></div>
-  
+
+
+<!-- storing lat long as variables to pass into SL api -->
 <div id="info"></div>
 <form method="post" action="/search">
   <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
-<!--   <input type= "authenticity"> -->
 	<input type="hidden" id="mapLat" name="lat">
 	<input type="hidden" id="mapLong" name="lng">
-	
 </form>
 
+<form method="get" action="/favorites" class="button_to">
+      <div><input value="My Favorite Venues" type="submit" /></div>
+    </form>
 
 
-
-
-<h1>Bars nearby:</h1>
+<!-- display list of venues on map page when pin is set-->
+ <h1>Places nearby:</h1>
 
 <% if @barlist %>
   <% @barlist.each do |bar| %>
     <li><%= bar["name"] %></li>
+
+<!-- store info from SL api in hidden form to allow user to save to favs -->
     <form method= "post" action="/add/favorite" id="favorite">
       <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
       <input type="hidden" id="name" name="name"  value="<%=bar['name']%>" >

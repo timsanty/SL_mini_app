@@ -1,5 +1,12 @@
-<h1>favorites index html page</h1>
+<h1>Your favorite Venues!</h1>
 
 <%  @favorites.each do |bar| %>
-<%= bar.name %>
+<ul>
+	<li><%= bar.name %></li>
+</ul>
 <% end %>
+
+
+<form method="get" action="/search" class="button_to">
+      <div><input value="Back to search" type="submit" /></div>
+    </form>

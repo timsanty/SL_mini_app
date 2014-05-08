@@ -5,21 +5,32 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 </head>
 <body>
+	<div class="row">
+		<div class="blue col-sm-6">
+		<% if current_user %>
+			<%= link_to("Sign out", destroy_user_session_path, method: "DELETE") %>
+		<% else %>
+			<%= link_to("Sign up", new_user_registration_path) %>
+			<%= link_to("Sign in", new_user_session_path) %>
+		<% end %>
 
-<% if current_user %>
-	<%= link_to("Sign out", destroy_user_session_path, method: "DELETE") %>
-<% else %>
-	<%= link_to("Sign up", new_user_registration_path) %>
-	<%= link_to("Sign in", new_user_session_path) %>
-<% end %>
+			 <%flash.each do|key,value|%>
+			 <div class="alert alert-<%=key%>"> <%=value%> </div>
+			 <%end%>
+			 
+		<%= yield %>
+		</div>
+	</div>
 
-	 <%flash.each do|key,value|%>
-	 <div class="alert alert-<%=key%>"> <%=value%> </div>
-	 <%end%>
-	 
-<%= yield %>
-
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 class FavoritesController < ApplicationController
 
 	def search
-		#displays map upon login
+		#if lat/long params set from pin, send to SL api and return venue info to search page
 		if params[:lat] && params[:lng]
 			@lat = params[:lat]
 	    	@lng = params[:lng]
@@ -16,6 +16,8 @@ class FavoritesController < ApplicationController
 
     def index
     	@favorites = Favorite.where(user_id: current_user.id)
+        
+
     end
 
     def favorites
