@@ -1,7 +1,7 @@
 StreetLampApp::Application.routes.draw do
 
 
-  root to: "sites#index"
+  root to: "favorites#search"
 
   devise_for :users
   resources :users
