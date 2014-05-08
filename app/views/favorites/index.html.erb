@@ -1,12 +1,20 @@
-<h1>Your favorite Venues!</h1>
 
-<%  @favorites.each do |bar| %>
-<ul>
-	<li><%= bar.name %></li>
-</ul>
-<% end %>
+<div class="container">
+	<div class="row">
+    <div class="col-lg-12">
+    	<body>
+				<form method="get" action="/search" class="button_to">
+	      	<div><input value="Back to search" type="submit" /></div>
+	    	</form>
 
+				<h1>Your favorite Venues!</h1>
 
-<form method="get" action="/search" class="button_to">
-      <div><input value="Back to search" type="submit" /></div>
-    </form>
+				<%  @favorites.each do |bar| %>
+				<ul>
+					<li><%= bar.name %></li>
+				</ul>
+				<% end %>
+			</body>
+		</div>
+	</div>
+</div>

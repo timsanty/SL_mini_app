@@ -8,7 +8,7 @@ class FavoritesController < ApplicationController
 
 	    	result =Typhoeus.get("http://www.street-lamp.com/api.php?lat=#{@lat}&lng=#{@lng}&auth=#{ENV['STREET_LAMP_KEY']}")
 			response = JSON.parse(result.body)
-			@barlist = response["venues"]
+			@barlist = response["venues"][0...10]
 		else
 			@barlist = [];
 		end
@@ -16,8 +16,6 @@ class FavoritesController < ApplicationController
 
     def index
     	@favorites = Favorite.where(user_id: current_user.id)
-        
-
     end
 
     def favorites

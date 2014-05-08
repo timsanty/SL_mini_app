@@ -1,36 +1,42 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>StreetLampApp</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
+	<head>
+	  <title>Street Lamp!</title>
 
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	  <%= csrf_meta_tags %>
+	</head>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
-</head>
-<body>
-	<div class="row">
-		<div class="blue col-sm-6">
-		<% if current_user %>
-			<%= link_to("Sign out", destroy_user_session_path, method: "DELETE") %>
-		<% else %>
-			<%= link_to("Sign up", new_user_registration_path) %>
-			<%= link_to("Sign in", new_user_session_path) %>
-		<% end %>
+	<body>
+		<header class="navbar-inverse">
+			<div class="container">
+				<nav class="navbar" role="navigation">
+		  		<div class="container-fluid">
+		  		<img style="width:100px;height:100px;" src="https://fbcdn-sphotos-h-a.akamaihd.net/hphotos-ak-frc3/t1.0-9/399823_283193558395269_592809433_n.jpg"></a>
+		  		</div><!-- /.container-fluid -->
+				</nav>
+			</div>
+		</header>
 
-			 <%flash.each do|key,value|%>
-			 <div class="alert alert-<%=key%>"> <%=value%> </div>
-			 <%end%>
-			 
-		<%= yield %>
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6">
+					<% if current_user %>
+						<%= link_to("Sign out", destroy_user_session_path, method: "DELETE") %>
+					<% else %>
+						<%= link_to("Sign up", new_user_registration_path) %>
+						<%= link_to("Sign in", new_user_session_path) %>
+					<% end %>
+
+						 <%flash.each do|key,value|%>
+						 <div class="alert alert-<%=key%>"> <%=value%> </div>
+						 <%end%>
+				</div>
+			</div>
 		</div>
-	</div>
-
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-</body>
+		<%= yield %>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	</body>
 </html>

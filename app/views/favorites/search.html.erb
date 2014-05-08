@@ -1,87 +1,86 @@
-<style>
-  html, body, #map-canvas {
-    height: 100%;
-    margin: 0px;
-    padding: 0px
-  }
-</style>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <form method="get" action="/favorites" class="button_to">
+        <div><input value="My Favorite Venues" type="submit" /></div>
+      </form>
 
+      <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+      <script>
+        function initialize() {
+          var mapOptions = {
+            zoom: 12,
+            center: new google.maps.LatLng(37.75225820732335, -122.4371337890625)
+          };
 
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-<script>
-  function initialize() {
-    var mapOptions = {
-      zoom: 12,
-      center: new google.maps.LatLng(37.75225820732335, -122.4371337890625)
-    };
+          var map = new google.maps.Map(document.getElementById('map-canvas'),
+            mapOptions);
 
-    var map = new google.maps.Map(document.getElementById('map-canvas'),
-      mapOptions);
+          var marker = null;
 
-    var marker = null;
+          google.maps.event.addListener(map, 'click', function(e) {
+            if (marker) {
+              marker.setMap(null);
+              marker = null;
+             }
 
-    google.maps.event.addListener(map, 'click', function(e) {
-      if (marker) {
-        marker.setMap(null);
-        marker = null;
-       }
+             marker = placeMarker(e.latLng, map);
 
-       marker = placeMarker(e.latLng, map);
+             window.location.href = '/search?lat=' + e.latLng.k + '&lng=' + e.latLng.A;
+          });
+        }
 
-       window.location.href = '/search?lat=' + e.latLng.k + '&lng=' + e.latLng.A;
-    });
-  }
+        function placeMarker(position, map) {
+          var marker = new google.maps.Marker({
+          position: position,
+          map: map
+          });
 
-  function placeMarker(position, map) {
-    var marker = new google.maps.Marker({
-    position: position,
-    map: map
-    });
+          document.getElementById("mapLat").value = position.k;
+          document.getElementById("mapLong").value = position.A;
+          
+          map.panTo(position);
+          
+          return marker;
+        }
 
-    document.getElementById("mapLat").value = position.k;
-    document.getElementById("mapLong").value = position.A;
+        google.maps.event.addDomListener(window, 'load', initialize);
+      </script>
+        <div id="map-canvas" style="width:500px;height:380px;"></div>
+    </div>
     
-    map.panTo(position);
-    
-    return marker;
-  }
 
-  google.maps.event.addDomListener(window, 'load', initialize);
-</script>
-<div id="map-canvas" style="width:500px;height:380px;"></div>
-
-
-<!-- storing lat long as variables to pass into SL api -->
-<div id="info"></div>
-<form method="post" action="/search">
-  <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
-	<input type="hidden" id="mapLat" name="lat">
-	<input type="hidden" id="mapLong" name="lng">
-</form>
-
-<form method="get" action="/favorites" class="button_to">
-      <div><input value="My Favorite Venues" type="submit" /></div>
-    </form>
-
-
-<!-- display list of venues on map page when pin is set-->
- <h1>Places nearby:</h1>
-
-<% if @barlist %>
-  <% @barlist.each do |bar| %>
-    <li><%= bar["name"] %></li>
-
-<!-- store info from SL api in hidden form to allow user to save to favs -->
-    <form method= "post" action="/add/favorite" id="favorite">
+    <!-- storing lat long as variables to pass into SL api -->
+    <div id="info"></div>
+    <form method="post" action="/search">
       <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
-      <input type="hidden" id="name" name="name"  value="<%=bar['name']%>" >
-       <input type="hidden" id="name" name="adrStreet"  value="<%=bar['adrStreet']%>" >
-        <input type="hidden" id="name" name="adrCity"  value="<%=bar['adrCity']%>" >
-         <input type="hidden" id="name" name="adrZip"  value="<%=bar['adrZip']%>" >
-          <input type="hidden" id="name" name="phone"  value="<%=bar['phone']%>" >
-      <input type="hidden" id="name" name="venId"  value="<%=bar['venId']%>" >
-      <button>Add to favorites!</button>
+    	<input type="hidden" id="mapLat" name="lat">
+    	<input type="hidden" id="mapLong" name="lng">
     </form>
 
-  <% end %>
-<% end  %>
+      <div class="whiteBG col-lg-6">
+        <!-- display list of venues on map page when pin is set-->
+        <h1>Places nearby:</h1>
+
+        <% if @barlist %>
+          <% @barlist.each do |bar| %>
+            <li><%= bar["name"] %></li>
+
+            <!-- store info from SL api in hidden form to allow user to save to favs -->
+            <form method= "post" action="/add/favorite" id="favorite">
+              <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
+                <input type="hidden" id="name" name="name"  value="<%=bar['name']%>" >
+                <input type="hidden" id="name" name="adrStreet"  value="<%=bar['adrStreet']%>" >
+                <input type="hidden" id="name" name="adrCity"  value="<%=bar['adrCity']%>" >
+                <input type="hidden" id="name" name="adrZip"  value="<%=bar['adrZip']%>" >
+                <input type="hidden" id="name" name="phone"  value="<%=bar['phone']%>" >
+                <input type="hidden" id="name" name="venId"  value="<%=bar['venId']%>" >
+              <button>Add to favorites!</button>
+            </form>
+          <% end %>
+        <% end  %> 
+      </div>
+  </div>
+</div>
+
+
