@@ -1,20 +1,23 @@
 
-<div class="container">
-	<div class="row">
-    <div class="col-lg-12">
-    	<body>
-				<form method="get" action="/search" class="button_to">
-	      	<div><input value="Back to search" type="submit" /></div>
-	    	</form>
 
+<body>
+	<div class="container">
+			<form method="get" action="/search" class="button_to">
+  			<div><input value="Back to search" type="submit" /></div>
+			</form>
+		<div class="row">
+    	<div class="whiteBG col-lg-5">
 				<h1>Your favorite Venues!</h1>
 
 				<%  @favorites.each do |bar| %>
 				<ul>
-					<li><%= bar.name %></li>
+					<li>
+						<%= bar.name %>
+						
+					</li>
 				</ul>
 				<% end %>
-			</body>
+			</div>
 		</div>
 	</div>
-</div>
+</body>

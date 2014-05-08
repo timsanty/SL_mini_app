@@ -58,25 +58,30 @@
     	<input type="hidden" id="mapLong" name="lng">
     </form>
 
-      <div class="whiteBG col-lg-6">
+      <div class="whiteBG col-lg-4">
         <!-- display list of venues on map page when pin is set-->
         <h1>Places nearby:</h1>
 
         <% if @barlist %>
           <% @barlist.each do |bar| %>
-            <li><%= bar["name"] %></li>
+          <ul>
+            <li><h4><%= bar["name"] %></h4>
 
-            <!-- store info from SL api in hidden form to allow user to save to favs -->
-            <form method= "post" action="/add/favorite" id="favorite">
-              <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
-                <input type="hidden" id="name" name="name"  value="<%=bar['name']%>" >
-                <input type="hidden" id="name" name="adrStreet"  value="<%=bar['adrStreet']%>" >
-                <input type="hidden" id="name" name="adrCity"  value="<%=bar['adrCity']%>" >
-                <input type="hidden" id="name" name="adrZip"  value="<%=bar['adrZip']%>" >
-                <input type="hidden" id="name" name="phone"  value="<%=bar['phone']%>" >
-                <input type="hidden" id="name" name="venId"  value="<%=bar['venId']%>" >
-              <button>Add to favorites!</button>
-            </form>
+
+
+              <!-- store info from SL api in hidden form to allow user to save to favs -->
+              <form method= "post" action="/add/favorite" id="favorite">
+                <%= tag(:input, :type => "hidden", :name => request_forgery_protection_token.to_s, :value => form_authenticity_token ) %>
+                  <input type="hidden" id="name" name="name"  value="<%=bar['name']%>" >
+                  <input type="hidden" id="name" name="adrStreet"  value="<%=bar['adrStreet']%>" >
+                  <input type="hidden" id="name" name="adrCity"  value="<%=bar['adrCity']%>" >
+                  <input type="hidden" id="name" name="adrZip"  value="<%=bar['adrZip']%>" >
+                  <input type="hidden" id="phone" name="phone"  value="<%=bar['phone']%>" >
+                  <input type="hidden" id="name" name="venId"  value="<%=bar['venId']%>" >
+                <button>Add to favorites!</button>
+              </form>
+              </li>
+            </ul>
           <% end %>
         <% end  %> 
       </div>
