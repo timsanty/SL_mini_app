@@ -18,10 +18,6 @@ ActiveRecord::Schema.define(version: 20140507202110) do
 
   create_table "favorites", force: true do |t|
     t.text     "name"
-    t.string "adrStreet"
-    t.string "adrCity"
-    t.integer "adrZip"
-    t.integer "phone"
     t.integer  "venue_id"
     t.integer  "user_id"
     t.datetime "created_at"
