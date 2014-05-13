@@ -5,9 +5,12 @@ class FavoritesController < ApplicationController
 		if params[:lat] && params[:lng]
 			@lat = params[:lat]
 	    	@lng = params[:lng]
+        gon.lat = params[:lat]
+        gon.lng = params[:lng]
 
-	    	result =Typhoeus.get("http://www.street-lamp.com/api.php?lat=#{@lat}&lng=#{@lng}&auth=#{ENV['STREET_LAMP_KEY']}")
-			response = JSON.parse(result.body)
+	    	
+      result =Typhoeus.get("http://www.street-lamp.com/api.php?lat=#{@lat}&lng=#{@lng}&auth=#{ENV['STREET_LAMP_KEY']}")
+      response = JSON.parse(result.body)
 			@barlist = response["venues"][0...10]
 		else
 			@barlist = [];
@@ -31,6 +34,15 @@ class FavoritesController < ApplicationController
     	flash[:success] = "venue added to favorites!"
     	redirect_to session.delete(:return_to)
   	end
+
+#added for search 
+    def simple_search
+      @search = SimpleSearch.new SimpleSearch.get_params(params)
+      @favorites = Favorite.none
+      if @search.valid?
+        @favorites = @search.search_within Favorite.all, :name
+      end
+    end
 end
 
 

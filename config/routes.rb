@@ -5,7 +5,11 @@ StreetLampApp::Application.routes.draw do
 
   devise_for :users
   resources :users
+#below for search
+  get '/simple_search' => 'favorites#simple_search'
 
+
+#above is for search
   match '/search', to: 'favorites#search', via: [:get, :post]
 
   post '/nearby', to: 'favorites#nearby'
@@ -15,6 +19,8 @@ StreetLampApp::Application.routes.draw do
   post '/add/favorite', to: 'favorites#favorites'
   
   get '/favorites', to: 'favorites#index'
+
+
 
   #get ''
 

@@ -1,0 +1,17 @@
+<body>
+	<div class="container">
+			<form method="get" action="/simple_search" class="button_to">
+  			<div><input value="Search Favorites" type="submit" /></div>
+  			<input type="text" name="simple_search[q]"></input>
+			</form>
+		<div class="row">
+    	<div class="whiteBG col-lg-5">
+				<h1>Search Results</h1>
+
+				<%  @favorites.each do |bar| %>
+				<%= bar.name %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</body>
