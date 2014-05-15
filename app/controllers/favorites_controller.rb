@@ -19,14 +19,15 @@ class FavoritesController < ApplicationController
 
   def favorites
   	# displays list of bars added to favorite db
-  	 @favorite = Favorite.new
-  	 @favorite.name = params['name']
-  	 @favorite.user_id = current_user.id
-  	 @favorite.save
+  	 @favorite =  current_user.favorites.create favorites_params
 
   	 session[:return_to] ||= request.referer
   	 @favorites = params
   	 flash[:success] = 'venue added to favorites!'
   	 redirect_to session.delete(:return_to)
- end
+  end
+
+  def favorites_params
+    params.require(:favorite).permit(:name)
+  end
 end

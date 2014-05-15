@@ -45,7 +45,7 @@ Good looking project Tim!
 	* Review:0 Code is in the views directly
 * Authorization
 	* Expectation: Authorization scheme is well-thought out and used correctly.
-	* Review:-- Authentication is used but authorization appears missing on favorites, I was not able to test because the app has errors on Heroku
+	* Review:0 Authentication is impl via Devise
 * API
 	*  Expectation: An API call was made.
 	* Review:++ Google maps and street lamp
@@ -78,7 +78,7 @@ Good looking project Tim!
 	* Review:--The standard routes are used for non-standard functionality, favorites#favories adds the favorite to the user's list
 * Secure
 	* Expectation: Authorization is implemented as well as authentication.  Athorization is achieved through controller methods or helpers that limit resources
-	* Review:--Not implemented?
+	* Review:Devise
 * Documenting Work
 	* Expectation: Public presentation of work involving key aspects of development process
 	* Review:No Readme provided
